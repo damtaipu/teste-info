@@ -1,0 +1,7 @@
+{
+  "jestrunner.vitestConfigPath": "frontend/vitest.config.mjs",
+  "jestrunner.vitestRunOptions": [
+    "--configLoader=native",
+    "--pool=threads"
+  ]
+}

@@ -1,18 +1,6 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  input,
-  output,
-} from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, effect, input, output } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Vehicle, VehiclePayload } from '../../../../core/models/vehicle.model';
 
 interface VehicleForm {
@@ -40,19 +28,40 @@ export class VehicleFormComponent {
   readonly cancel = output<void>();
 
   readonly form = new FormGroup<VehicleForm>({
-    placa: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    chassi: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    renavam: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    modelo: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    marca: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    placa: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    chassi: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    renavam: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    modelo: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    marca: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
     ano: new FormControl<number | null>(null, [Validators.required, Validators.min(1886)]),
   });
 
   readonly formTitle = computed(() => (this.vehicle() ? 'Editar Veiculo' : 'Novo Veiculo'));
+
   readonly formSubtitle = computed(() =>
-    this.vehicle() ? 'Atualize os dados do veiculo selecionado.' : 'Preencha os dados para cadastrar um novo veiculo.'
+    this.vehicle()
+      ? 'Atualize os dados do veiculo selecionado.'
+      : 'Preencha os dados para cadastrar um novo veiculo.',
   );
-  readonly submitLabel = computed(() => (this.vehicle() ? 'Salvar alteracoes' : 'Cadastrar veiculo'));
+
+  readonly submitLabel = computed(() =>
+    this.vehicle() ? 'Salvar alteracoes' : 'Cadastrar veiculo',
+  );
 
   constructor() {
     effect(() => {

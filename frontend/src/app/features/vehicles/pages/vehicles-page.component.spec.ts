@@ -1,9 +1,38 @@
-import { signal } from '@angular/core';
+import { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
-import { Vehicle } from '../../../core/models/vehicle.model';
-import { VehiclesPageComponent } from './vehicles-page.component';
+import { Vehicle, VehiclePayload } from '../../../core/models/vehicle.model';
+import { VehicleFormComponent } from '../components/vehicle-form/vehicle-form.component';
+import { VehiclesTableComponent } from '../components/vehicles-table/vehicles-table.component';
 import { VehiclesStore } from '../state/vehicles.store';
+import { VehiclesPageComponent } from './vehicles-page.component';
+
+@Component({
+  selector: 'app-vehicle-form',
+  standalone: true,
+  template: '',
+})
+class VehicleFormStubComponent {
+  @Input() vehicle: Vehicle | null = null;
+  @Input() busy = false;
+
+  @Output() readonly save = new EventEmitter<VehiclePayload>();
+  @Output() readonly cancel = new EventEmitter<void>();
+}
+
+@Component({
+  selector: 'app-vehicles-table',
+  standalone: true,
+  template: '',
+})
+class VehiclesTableStubComponent {
+  @Input() vehicles: Vehicle[] = [];
+  @Input() loading = false;
+  @Input() busy = false;
+
+  @Output() readonly edit = new EventEmitter<Vehicle>();
+  @Output() readonly remove = new EventEmitter<Vehicle>();
+}
 
 describe('VehiclesPageComponent', () => {
   let fixture: ComponentFixture<VehiclesPageComponent>;
@@ -38,7 +67,17 @@ describe('VehiclesPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [VehiclesPageComponent],
       providers: [{ provide: VehiclesStore, useValue: storeMock }],
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(VehiclesPageComponent, {
+        remove: {
+          imports: [VehicleFormComponent, VehiclesTableComponent],
+        },
+        add: {
+          imports: [VehicleFormStubComponent, VehiclesTableStubComponent],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(VehiclesPageComponent);
     component = fixture.componentInstance;

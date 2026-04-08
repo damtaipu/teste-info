@@ -1,7 +1,60 @@
+import { Type, inputBinding } from '@angular/core';
+import * as ngCore from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
-import { VehicleFormComponent } from './vehicle-form.component';
 import { Vehicle } from '../../../../core/models/vehicle.model';
+import { VehicleFormComponent } from './vehicle-form.component';
+
+type ComponentInputs = Record<string, unknown>;
+
+const SIGNAL = (ngCore as Record<string, unknown>)['\u0275SIGNAL'] as symbol | undefined;
+
+function applyInput(instance: Record<string, unknown>, name: string, value: unknown): void {
+  const maybeSignal = instance[name];
+
+  if (typeof maybeSignal === 'function' && SIGNAL) {
+    const node = (maybeSignal as unknown as Record<symbol, unknown>)[SIGNAL] as {
+      applyValueToInputSignal?: (node: unknown, value: unknown) => void;
+    };
+
+    if (typeof node?.applyValueToInputSignal === 'function') {
+      node.applyValueToInputSignal(node, value);
+      return;
+    }
+  }
+
+  instance[name] = value;
+}
+
+function createComponentWithInputs<T>(
+  component: Type<T>,
+  options: { inputs?: ComponentInputs } = {},
+): ComponentFixture<T> {
+  const inputs = options.inputs ?? {};
+
+  try {
+    const bindings = Object.entries(inputs).map(([name, value]) => inputBinding(name, () => value));
+
+    const fixture = TestBed.createComponent(component, { bindings });
+    fixture.detectChanges();
+    return fixture;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (!message.includes('does not have an input with a public name')) {
+      throw error;
+    }
+
+    const fixture = TestBed.createComponent(component);
+    const instance = fixture.componentInstance as Record<string, unknown>;
+
+    for (const [name, value] of Object.entries(inputs)) {
+      applyInput(instance, name, value);
+    }
+
+    fixture.detectChanges();
+    return fixture;
+  }
+}
 
 describe('VehicleFormComponent', () => {
   let fixture: ComponentFixture<VehicleFormComponent>;
@@ -17,14 +70,25 @@ describe('VehicleFormComponent', () => {
     ano: 2023,
   };
 
+  const setup = (overrides?: { vehicle?: Vehicle | null; busy?: boolean }) => {
+    fixture?.destroy();
+
+    fixture = createComponentWithInputs(VehicleFormComponent, {
+      inputs: {
+        vehicle: overrides?.vehicle ?? null,
+        busy: overrides?.busy ?? false,
+      },
+    });
+
+    component = fixture.componentInstance;
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [VehicleFormComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(VehicleFormComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    setup();
   });
 
   it('deve criar o componente', () => {
@@ -40,8 +104,7 @@ describe('VehicleFormComponent', () => {
   });
 
   it('deve entrar em modo edicao quando receber vehicle', () => {
-    fixture.componentRef.setInput('vehicle', vehicle);
-    fixture.detectChanges();
+    setup({ vehicle });
 
     const title = fixture.nativeElement.querySelector('h2') as HTMLElement;
 
@@ -84,13 +147,12 @@ describe('VehicleFormComponent', () => {
   });
 
   it('deve emitir cancel ao clicar em cancelar edicao', () => {
+    setup({ vehicle });
+
     const cancelSpy = vi.spyOn(component.cancel, 'emit');
 
-    fixture.componentRef.setInput('vehicle', vehicle);
-    fixture.detectChanges();
-
     const cancelButton = fixture.nativeElement.querySelector(
-      'button.secondary'
+      'button.secondary',
     ) as HTMLButtonElement;
 
     cancelButton.click();
