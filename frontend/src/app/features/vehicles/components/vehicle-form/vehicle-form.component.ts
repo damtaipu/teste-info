@@ -55,12 +55,12 @@ export class VehicleFormComponent {
 
   readonly formSubtitle = computed(() =>
     this.vehicle()
-      ? 'Atualize os dados do veiculo selecionado.'
-      : 'Preencha os dados para cadastrar um novo veiculo.',
+      ? 'Atualize os dados do veículo selecionado.'
+      : 'Preencha os dados para cadastrar um novo veículo.',
   );
 
   readonly submitLabel = computed(() =>
-    this.vehicle() ? 'Salvar alteracoes' : 'Cadastrar veiculo',
+    this.vehicle() ? 'Salvar alterações' : 'Cadastrar veículo',
   );
 
   constructor() {

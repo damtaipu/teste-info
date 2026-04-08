@@ -1,13 +1,13 @@
 <section class="card">
   <header>
-    <h2>Lista de Veiculos</h2>
+    <h2>Lista de Veículos</h2>
     <p>Resultados exibidos: {{ vehicles().length }}</p>
   </header>
 
   @if (loading()) {
-    <p class="state">Carregando veiculos...</p>
+    <p class="state">Carregando veículos...</p>
   } @else if (!vehicles().length) {
-    <p class="state">Nenhum veiculo encontrado.</p>
+    <p class="state">Nenhum veículo encontrado.</p>
   } @else {
     <div class="table-wrapper">
       <table>
@@ -19,7 +19,7 @@
             <th>Ano</th>
             <th>Chassi</th>
             <th>Renavam</th>
-            <th>Acoes</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
