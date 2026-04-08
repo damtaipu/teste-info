@@ -1,0 +1,81 @@
+.card {
+  background: #fff;
+  border: 1px solid #d7e2ef;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 0.06);
+}
+
+header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+header p {
+  margin: 0.35rem 0 1rem;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.state {
+  margin: 0;
+  color: #475569;
+}
+
+.table-wrapper {
+  overflow: auto;
+  max-height: 60vh;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 940px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e5ecf4;
+  text-align: left;
+  padding: 0.65rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+th {
+  color: #4b5563;
+  background: #f8fafc;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button.edit {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+button.remove {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

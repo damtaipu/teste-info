@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.app-shell {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at top left, #d5e8ff 0, transparent 42%),
+    radial-gradient(circle at bottom right, #f5f8d0 0, transparent 40%),
+    #f8fafc;
+  color: #1f2937;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  background: rgb(248 250 252 / 84%);
+  border-bottom: 1px solid #dbe3ec;
+  padding: 1rem clamp(1rem, 2vw, 2rem);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  letter-spacing: 0.02em;
+}
+
+.app-header p {
+  margin: 0.3rem 0 0;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.app-content {
+  padding: clamp(1rem, 3vw, 2.5rem);
+}

@@ -1,0 +1,70 @@
+<section class="card">
+  <header>
+    <h2>{{ formTitle() }}</h2>
+    <p>{{ formSubtitle() }}</p>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="grid">
+      <label>
+        Placa
+        <input formControlName="placa" placeholder="ABC1D23" />
+        @if (invalid('placa')) {
+          <small>Informe a placa.</small>
+        }
+      </label>
+
+      <label>
+        Chassi
+        <input formControlName="chassi" placeholder="9BWZZZ377VT004251" />
+        @if (invalid('chassi')) {
+          <small>Informe o chassi.</small>
+        }
+      </label>
+
+      <label>
+        Renavam
+        <input formControlName="renavam" placeholder="12345678901" />
+        @if (invalid('renavam')) {
+          <small>Informe o renavam.</small>
+        }
+      </label>
+
+      <label>
+        Modelo
+        <input formControlName="modelo" placeholder="Civic" />
+        @if (invalid('modelo')) {
+          <small>Informe o modelo.</small>
+        }
+      </label>
+
+      <label>
+        Marca
+        <input formControlName="marca" placeholder="Honda" />
+        @if (invalid('marca')) {
+          <small>Informe a marca.</small>
+        }
+      </label>
+
+      <label>
+        Ano
+        <input formControlName="ano" type="number" min="1886" />
+        @if (invalid('ano')) {
+          <small>Informe um ano valido.</small>
+        }
+      </label>
+    </div>
+
+    <footer>
+      <button type="submit" [disabled]="busy()">
+        {{ busy() ? 'Salvando...' : submitLabel() }}
+      </button>
+
+      @if (vehicle()) {
+        <button type="button" class="secondary" (click)="cancel.emit()" [disabled]="busy()">
+          Cancelar edicao
+        </button>
+      }
+    </footer>
+  </form>
+</section>

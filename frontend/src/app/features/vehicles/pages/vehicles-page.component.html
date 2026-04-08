@@ -1,0 +1,43 @@
+<section class="vehicles-page">
+  <div class="summary">
+    <article class="metric">
+      <span>Total</span>
+      <strong>{{ store.total() }}</strong>
+    </article>
+
+    <article class="metric">
+      <span>Filtrados</span>
+      <strong>{{ store.filteredVehicles().length }}</strong>
+    </article>
+
+    <label class="search">
+      Buscar
+      <input
+        [ngModel]="store.search()"
+        (ngModelChange)="store.setSearch($event)"
+        placeholder="Placa, modelo, marca..."
+      />
+    </label>
+  </div>
+
+  @if (store.error()) {
+    <p class="error">{{ store.error() }}</p>
+  }
+
+  <div class="layout">
+    <app-vehicle-form
+      [vehicle]="editingVehicle()"
+      [busy]="store.saving()"
+      (save)="onSave($event)"
+      (cancel)="onCancelEdit()"
+    />
+
+    <app-vehicles-table
+      [vehicles]="store.filteredVehicles()"
+      [loading]="store.loading()"
+      [busy]="store.saving()"
+      (edit)="onEdit($event)"
+      (remove)="onRemove($event)"
+    />
+  </div>
+</section>

@@ -1,0 +1,83 @@
+[
+  {
+    "id": "dd2e7c6d-8bbf-4f33-aecf-e37b2a1f6318",
+    "placa": "QWE4R5",
+    "chassi": "9BWZZZ377VT004252",
+    "renavam": "22345678901",
+    "modelo": "Corolla XEi",
+    "marca": "Toyota",
+    "ano": 2022
+  },
+  {
+    "id": "4ce6a467-6600-4a74-bef6-84d9f53c0992",
+    "placa": "MNO7P88",
+    "chassi": "9BWZZZ377VT004253",
+    "renavam": "32345678901",
+    "modelo": "Onix LT",
+    "marca": "Chevrolet",
+    "ano": 2021
+  },
+  {
+    "id": "759ad34e-b793-4ac1-9d08-2f6f2710f17f",
+    "placa": "XYZ1A23",
+    "chassi": "9BWZZZ377VT004255",
+    "renavam": "52345678901",
+    "modelo": "Nivus Highline",
+    "marca": "Volkswagen",
+    "ano": 2024
+  },
+  {
+    "id": "0c1ef2e1-43a5-4dc4-9a67-8e09b6be5b75",
+    "placa": "TUV5C67",
+    "chassi": "9BWZZZ377VT004256",
+    "renavam": "62345678901",
+    "modelo": "Compass Longitude",
+    "marca": "Jeep",
+    "ano": 2023
+  },
+  {
+    "id": "18a3a26b-7bf7-47d4-b62e-98847ea8fca4",
+    "placa": "FGH8J90",
+    "chassi": "9BWZZZ377VT004257",
+    "renavam": "72345678901",
+    "modelo": "Kicks Advance",
+    "marca": "Nissan",
+    "ano": 2022
+  },
+  {
+    "id": "c9f7c79d-2c8a-43d9-9279-8485f63514e3",
+    "placa": "RST3L45",
+    "chassi": "9BWZZZ377VT004258",
+    "renavam": "82345678901",
+    "modelo": "Argo Drive",
+    "marca": "Fiat",
+    "ano": 2021
+  },
+  {
+    "id": "f0de6db5-3a13-4d62-a46d-7377dbf6c0df",
+    "placa": "BCD6N78",
+    "chassi": "9BWZZZ377VT004259",
+    "renavam": "92345678901",
+    "modelo": "208 Allure",
+    "marca": "Peugeot",
+    "ano": 2020
+  },
+  {
+    "id": "a4b586c2-8f70-4f7d-994d-3e8af2dce0e9",
+    "placa": "HJK0P12",
+    "chassi": "9BWZZZ377VT004260",
+    "renavam": "10345678901",
+    "modelo": "Duster Iconic",
+    "marca": "Renault",
+    "ano": 2024
+  },
+  {
+    "id": "80a0c422-23d8-4f04-b27d-d37bb07262ef",
+    "placa": "ABC1D00",
+    "chassi": "9BWZZZ377V004251",
+    "renavam": "1234567801",
+    "modelo": "Civic",
+    "marca": "Honda",
+    "ano": 2023
+  }
+]

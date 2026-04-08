@@ -1,0 +1,51 @@
+<section class="card">
+  <header>
+    <h2>Lista de Veiculos</h2>
+    <p>Resultados exibidos: {{ vehicles().length }}</p>
+  </header>
+
+  @if (loading()) {
+    <p class="state">Carregando veiculos...</p>
+  } @else if (!vehicles().length) {
+    <p class="state">Nenhum veiculo encontrado.</p>
+  } @else {
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Placa</th>
+            <th>Modelo</th>
+            <th>Marca</th>
+            <th>Ano</th>
+            <th>Chassi</th>
+            <th>Renavam</th>
+            <th>Acoes</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (vehicle of vehicles(); track vehicle.id) {
+            <tr>
+              <td><strong>{{ vehicle.placa }}</strong></td>
+              <td>{{ vehicle.modelo }}</td>
+              <td>{{ vehicle.marca }}</td>
+              <td>{{ vehicle.ano }}</td>
+              <td>{{ vehicle.chassi }}</td>
+              <td>{{ vehicle.renavam }}</td>
+              <td class="actions">
+                <button type="button" class="edit" (click)="edit.emit(vehicle)">Editar</button>
+                <button
+                  type="button"
+                  class="remove"
+                  (click)="remove.emit(vehicle)"
+                  [disabled]="busy()"
+                >
+                  Excluir
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>
