@@ -1,5 +1,6 @@
 {
-  "jestrunner.vitestConfigPath": "frontend/vitest.config.mjs",
+  "jestrunner.vitestCommand": "node ./node_modules/vitest/vitest.mjs",
+  "jestrunner.vitestConfigPath": "vitest.config.mjs",
   "jestrunner.vitestRunOptions": [
     "--configLoader=native",
     "--pool=threads"

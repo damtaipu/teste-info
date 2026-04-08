@@ -8,7 +8,7 @@ import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { afterEach, beforeEach } from 'vitest';
+import { afterEach, beforeAll, beforeEach } from 'vitest';
 
 interface ResourceEntry {
   absolutePath: string;
@@ -22,7 +22,8 @@ const resolveComponentResources = (ngCore as Record<string, unknown>)[
   '\u0275resolveComponentResources'
 ] as ResolveComponentResourcesFn | undefined;
 
-const SOURCE_ROOT = path.resolve(process.cwd(), 'src');
+const TEST_SETUP_FILE = fileURLToPath(import.meta.url);
+const SOURCE_ROOT = path.dirname(TEST_SETUP_FILE);
 const APP_ROOT = path.resolve(SOURCE_ROOT, 'app');
 const RESOURCE_EXTENSIONS = new Set(['.html', '.scss', '.css']);
 
@@ -88,6 +89,14 @@ function collectResourceEntries(directory: string): ResourceEntry[] {
 
 const resourceEntries = collectResourceEntries(APP_ROOT);
 
+async function resolvePendingComponentResources(): Promise<void> {
+  if (!resolveComponentResources) {
+    return;
+  }
+
+  await resolveComponentResources(async (url) => readResourceFromDisk(url));
+}
+
 function readResourceFromDisk(url: string): string {
   const cleanUrl = stripQuery(url);
   const normalizedUrl = toPosixPath(cleanUrl.replace(/^\.\//, ''));
@@ -150,10 +159,12 @@ if (!globalSetup[ANGULAR_TESTBED_SETUP]) {
   });
 }
 
+beforeAll(async () => {
+  await resolvePendingComponentResources();
+});
+
 beforeEach(async () => {
-  if (resolveComponentResources) {
-    await resolveComponentResources(async (url) => readResourceFromDisk(url));
-  }
+  await resolvePendingComponentResources();
 });
 
 afterEach(() => {
